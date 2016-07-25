@@ -33,7 +33,7 @@ abstract class AbstractSeleniumTest extends \PHPUnit_Extensions_SeleniumTestCase
         $application->setAutoExit(false);
         $application->run(new ArrayInput(array('command' => 'doctrine:schema:drop', '--force' => true)));
         $application->run(new ArrayInput(array('command' => 'doctrine:schema:create')));
-        $application->run(new ArrayInput(array('command' => 'doctrine:data:load', '--fixtures' => 'src/Acme/PizzaBundle/DataFixtures/ORM/')));
+        $application->run(new ArrayInput(array('command' => 'doctrine:data:load', '--fixtures' => 'src/Acme/TshirtBundle/DataFixtures/ORM/')));
 
         $this->em = $this->kernel->getContainer()->get('doctrine')->getEntityManager();
         */
