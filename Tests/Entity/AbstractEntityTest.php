@@ -19,3 +19,5 @@ abstract class AbstractEntityTest extends \PHPUnit_Framework_TestCase
         self::$validator = $kernel->getContainer()->get('validator');
     }
 }
+
+?>
