@@ -57,3 +57,4 @@ class CustomerEntityTest extends AbstractEntityTest
         }
     }
 }
+?>
