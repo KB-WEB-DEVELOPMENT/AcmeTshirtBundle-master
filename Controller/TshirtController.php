@@ -68,7 +68,7 @@ class TshirtController extends Controller
     public function listAction()
     {
         $tshirts = $this->get('doctrine')->getEntityManager()
-            ->createQuery('SELECT p FROM AcmeTshirtBundle:Tshirt p ORDER BY p.name ASC')
+            ->createQuery('SELECT t FROM AcmeTshirtBundle:Tshirt t ORDER BY t.name ASC')
             ->getResult()
         ;
 
