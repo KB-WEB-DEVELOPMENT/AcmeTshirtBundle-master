@@ -21,7 +21,7 @@ class ShopperController extends Controller
     public function listAction()
     {
         $shoppers = $this->getDoctrine()->getEntityManager()
-            ->createQuery('SELECT c FROM AcmeTshirtBundle:Shopper s ORDER BY s.name ASC')
+            ->createQuery('SELECT s FROM AcmeTshirtBundle:Shopper s ORDER BY s.name ASC')
             ->getResult()
         ;
 
