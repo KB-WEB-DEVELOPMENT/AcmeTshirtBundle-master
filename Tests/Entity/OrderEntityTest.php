@@ -55,3 +55,5 @@ class OrderEntityTest extends AbstractEntityTest
         }
     }
 }
+
+?>
