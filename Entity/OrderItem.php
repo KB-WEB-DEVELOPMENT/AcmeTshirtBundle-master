@@ -81,7 +81,7 @@ class OrderItem
      * 
      * @param Tshirt $tshirt
      */
-    public function setPizza(Tshirt $tshirt)
+    public function setTshirt(Tshirt $tshirt)
     {
         $this->tshirt = $tshirt;
     }
