@@ -1,0 +1,29 @@
+{% extends "AcmeTshirtBundle::layout.html.twig" %}
+
+{% block title parent() ~ " - Customer - List" %}
+
+{% block content %}
+
+<h2>Shoppers</h2>
+
+{% for shopper in shoppers %}
+
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ shopper.name }}<dd>
+
+        <dt>Street</dt>
+        <dd>{{ shopper.street }}<dd>
+
+        <dt>City</dt>
+        <dd>{{ shopper.city }}<dd>
+
+        <dt>Phone</dt>
+        <dd>{{ shopper.phone }}<dd>
+    </dl>
+
+    <hr />
+
+{% endfor %}
+
+{% endblock %}
