@@ -1,0 +1,18 @@
+{% extends "AcmeTshirtBundle::layout.html.twig" %}
+
+{% block title parent() ~ " ** T-shirts ** Create/Update" %}
+
+{% block content %}
+
+{% if tshirt.id %}
+    <h2>Updating "{{ tshirt.name }}"</h2>
+{% else %}
+    <h2>Launching a new type of T-shirt</h2>
+{% endif %}
+
+<form method="post" action="{{ app.request.requestUri }}" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" />
+</form>
+
+{% endblock %}
