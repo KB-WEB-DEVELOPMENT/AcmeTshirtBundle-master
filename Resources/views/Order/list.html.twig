@@ -1,0 +1,58 @@
+{% extends "AcmeTshirtBundle::layout.html.twig" %}
+
+{% block title parent() ~ "T-shirts Order List" %}
+
+{% block content %}
+
+{% for order in orders %}
+
+    <h2>Order #{{ order.id }}</h2>
+
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ order.shopper.name }}<dd>
+
+        <dt>Street</dt>
+        <dd>{{ order.shopper.street }}<dd>
+
+        <dt>City</dt>
+        <dd>{{ order.shopper.city }}<dd>
+
+        <dt>Phone</dt>
+        <dd>{{ order.shopper.phone }}<dd>
+    </dl>
+
+    <table>
+        <thead>
+            <tr>
+                <th>T-shirt(s)</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items %}
+            <tr>
+                <td>{{ item.tshirt.name  }}</td>
+                <td>{{ item.count       }}</td>
+                <td>{{ item.tshirt.price }}</td>
+                <td>{{ item.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Total</th>
+                <td>{{ order.total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a href="{{ path("acme_tshirt_order_show", {"id": order.id}) }}">Show</a>
+
+    <hr />
+
+{% endfor %}
+
+{% endblock %}
