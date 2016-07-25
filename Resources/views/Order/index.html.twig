@@ -1,0 +1,112 @@
+{% extends "AcmeTshirtBundle::layout.html.twig" %}
+
+{% block title parent() ~ " - Order" %}
+
+{% block content %}
+
+<h2>Shop for T-shirts of different sizes !</h2>
+
+<p>Hello Shopper! You will find T-shirts of different sizes on our e-commerce website !</p>
+
+<form method="post" action="{{ path("acme_tshirt_order_index") }}" {{ form_enctype(form) }} novalidate="novalidate">
+
+    {{ form_row(form.known_shopper, { "label": "Is a known shopper?" }) }}
+    {{ form_row(form.known_phone)    }}
+    {{ form_row(form.shopper)       }}
+
+    {% macro prototype(item) %}
+    <tr>
+        <td>
+            {{ form_widget(item.tshirt, { "empty_value": "" }) }}
+            {{ form_errors(item.tshirt) }}
+        </td>
+        <td>
+            {{ form_widget(item.count) }}
+            {{ form_errors(item.count) }}
+        </td>
+        <td>
+            <ul>
+                <li><a href="#">Add</a></li>
+                <li><a href="#">Remove</a></li>
+            </ul>
+        </td>
+    </tr>
+    {% endmacro %}
+
+    <script type="text/html">
+        {{ _self.prototype(form.items.get('prototype')) }} {# don't know if it is the best way to access prototype #}
+    </script>
+
+    <table>
+        <caption>{{ form_label(form.items) }}</caption>
+        <thead>
+            <tr>
+                <th>T-shirt(s)</th>
+                <th>Count</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, item in form.items %}
+                {{ _self.prototype(item) }}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ form_rest(form) }}{# form.items's prototype is rendered twice #}
+    {{ form_errors(form) }}
+
+    <input type="submit" />
+</form>
+
+<script>
+    /* add t-shirts */
+    var add = function() {
+        var index = $('table tbody tr').length;
+        var row = $('script[type="text/html"]').text().replace(/\$\$name\$\$/g, index);
+
+        $('table tbody').append(row);
+    };
+
+    $('table tbody a').live('click', function(event) {
+        if ($(this).text() === "Add") {
+            add();
+        }
+        if ($(this).text() === "Remove") {
+            $(this).closest('tr').remove();
+        }
+        event.preventDefault();
+    });
+
+    if ($('table tbody tr').length === 0) {
+        add();
+    }
+
+    /* ...known customer... */
+    var toggle = true;
+
+    $('input#{{ form.known_customer.get('id') }}').change(function() {
+
+        if ($(this).is(':checked')) {
+
+            var $$ = $('input#{{ form.known_phone.get('id') }}').closest('div');
+            $$.find('input').attr('disabled', false);
+            if (toggle) $$.show();
+
+            var $$ = $('label:contains("{{ form.shopper.get('label') }}"):first').closest('div');
+            $$.find('input').attr('disabled', true);
+            if (toggle) $$.hide();
+        } else {
+            var $$ = $('label:contains("{{ form.shopper.get('label') }}"):first').closest('div');
+            $$.find('input').attr('disabled', false);
+            if (toggle) $$.show();
+
+            var $$ = $('input#{{ form.known_phone.get('id') }}').closest('div');
+            $$.find('input').attr('disabled', true);
+            if (toggle) $$.hide();
+        }
+
+    }).change();
+</script>
+
+{% endblock %}
