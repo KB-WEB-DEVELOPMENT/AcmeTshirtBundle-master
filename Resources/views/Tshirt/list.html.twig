@@ -1,0 +1,31 @@
+{% extends "AcmeTshirtBundle::layout.html.twig" %}
+
+{% block title parent() ~ " T-shirts List" %}
+
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>T-shirts</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for tshirt in tshirts %}
+        <tr>
+            <td>{{ tshirt.name }}</td>
+            <td>{{ "%0.2f" | format(tshirt.price) }}</td>
+            <td>
+                <ul>
+                    <li><a href="{{ path("acme_tshirt_tshirt_update", {"id": tshirt.id}) }}">Update</a></li>
+                    <li><a href="{{ path("acme_tshirt_tshirt_delete", {"id": tshirt.id}) }}">Delete</a></li>
+                </ul>
+            </td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
